@@ -17,22 +17,28 @@ type Users struct {
 	parent_user_id int
 }
 
-func (u *Users) FindFirstName() {
+func (u *Users) FindFirstName() []string {
 	path := "./db/users.csv"
 	lines := make(chan string)
+
+	var users []string
 
 	go readFile(path, lines)
 
 	for line := range lines {
 		user := parseLine(line)
 		u = &user
-		fmt.Println(u.first_name)
+		users = append(users, u.first_name)
 	}
+
+	return users
 }
 
-func (u *Users) FindUserByFirstName(first string) *Users {
+func (u *Users) FindUserByFirstName(first string) []Users {
 	path := "./db/users.csv"
 	lines := make(chan string)
+
+	var users []Users
 
 	go readFile(path, lines)
 
@@ -40,12 +46,16 @@ func (u *Users) FindUserByFirstName(first string) *Users {
 		user := parseLine(line)
 		u = &user
 		if u.first_name == first {
-			fmt.Println(u)
+			users = append(users, user)
 		}
 	}
-	fmt.Println("Not found")
-	return nil
+	if len(users) == 0 {
+		fmt.Println("Not found")
+		return nil
+	}
+	return users
 }
+
 
 func parseLine(line string) Users {
 
