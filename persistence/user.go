@@ -1,7 +1,7 @@
 package persistence
 
 import (
-	"fmt"
+	"errors"
 	"strconv"
 	"strings"
 )
@@ -34,7 +34,7 @@ func (u *Users) FindFirstName() []string {
 	return users
 }
 
-func (u *Users) FindUserByFirstName(first string) []Users {
+func (u *Users) FindUserByFirstName(first string) ([]Users, error) {
 	path := "./db/users.csv"
 	lines := make(chan string)
 
@@ -50,10 +50,9 @@ func (u *Users) FindUserByFirstName(first string) []Users {
 		}
 	}
 	if len(users) == 0 {
-		fmt.Println("Not found")
-		return nil
+		return nil, errors.New("not found")
 	}
-	return users
+	return users, nil
 }
 
 

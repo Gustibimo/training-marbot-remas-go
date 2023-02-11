@@ -15,7 +15,10 @@ func main() {
 
 	userService := domain.NewUserService(&user)
 
-	result := userService.FindUserByFirstName("Rebecca")
+	result, err := userService.FindUserByFirstName("Rebecca")
+	if err != nil {
+		fmt.Println("not found")
+	}
 	fmt.Print(result)
 
 	// res := userService.FindAllUserFirstName()

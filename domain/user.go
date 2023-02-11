@@ -4,7 +4,7 @@ import "github.com/Gustibimo/training-marbot-remas-go.git/persistence"
 
 
 type UserFinder interface {
-	FindUserByFirstName(firstName string) []persistence.Users
+	FindUserByFirstName(firstName string) ([]persistence.Users, error)
 	FindAllUserFirstName() []string
 }
 
@@ -24,7 +24,7 @@ func NewUserService(users *persistence.Users) UserFinder {
 	}
 }
 
-func (s *UserService) FindUserByFirstName(firstName string) []persistence.Users {
+func (s *UserService) FindUserByFirstName(firstName string) ([]persistence.Users, error) {
 	return s.Users.FindUserByFirstName(firstName)
 }
 
