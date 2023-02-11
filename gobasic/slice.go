@@ -2,7 +2,7 @@ package gobasic
 
 import "fmt"
 
-func SliceRun() {
+func SliceRun() []string {
 	// create a slice of strings
 	slice := []string{"bimo", "dzaki"}
 	// add data to slice
@@ -12,5 +12,6 @@ func SliceRun() {
 	ints := []int{1,3,5,6}
 	ints = append(ints, 89)
 
-	fmt.Println(ints)
+	fmt.Println(slice)
+	return slice
 }
