@@ -1,6 +1,7 @@
 package persistence
 
 import (
+	"encoding/json"
 	"errors"
 	"strconv"
 	"strings"
@@ -15,6 +16,30 @@ type Users struct {
 	deleted_at     int
 	merged_at      int
 	parent_user_id int
+}
+
+type UserResponse struct {
+	Id           int    `json:"id"`
+	FirstName    string `json:"first_name"`
+	LastName     string `json:"last_name"`
+	EmailAddress string `json:"email_address"`
+	CreatedAt    int    `json:"created_at"`
+	DeletedAt    int    `json:"deleted_at"`
+	MergedAt     int    `json:"merged_at"`
+	ParentUserId int    `json:"parent_user_id"`
+}
+
+func (u Users) MarshalJSON() ([]byte, error) {
+	return json.Marshal(UserResponse{
+		Id:           u.id,
+		FirstName:    u.first_name,
+		LastName:     u.last_name,
+		EmailAddress: u.email_address,
+		CreatedAt:    u.created_at,
+		DeletedAt:    u.deleted_at,
+		MergedAt:     u.merged_at,
+		ParentUserId: u.parent_user_id,
+	})
 }
 
 func (u *Users) FindFirstName() []string {
@@ -54,7 +79,6 @@ func (u *Users) FindUserByFirstName(first string) ([]Users, error) {
 	}
 	return users, nil
 }
-
 
 func parseLine(line string) Users {
 
