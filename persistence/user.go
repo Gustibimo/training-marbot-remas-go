@@ -29,6 +29,7 @@ type UserResponse struct {
 	ParentUserId int    `json:"parent_user_id"`
 }
 
+// overrride MarshalJSON from Marshaler interface
 func (u Users) MarshalJSON() ([]byte, error) {
 	return json.Marshal(UserResponse{
 		Id:           u.id,
