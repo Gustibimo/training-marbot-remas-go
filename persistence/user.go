@@ -5,6 +5,8 @@ import (
 	"errors"
 	"strconv"
 	"strings"
+
+	db "github.com/Gustibimo/training-marbot-remas-go.git/db"
 )
 
 type Users struct {
@@ -49,7 +51,7 @@ func (u *Users) FindFirstName() []string {
 
 	var users []string
 
-	go readFile(path, lines)
+	go db.ReadFile(path, lines)
 
 	for line := range lines {
 		user := parseLine(line)
@@ -66,7 +68,7 @@ func (u *Users) FindUserByFirstName(first string) ([]Users, error) {
 
 	var users []Users
 
-	go readFile(path, lines)
+	go db.ReadFile(path, lines)
 
 	for line := range lines {
 		user := parseLine(line)

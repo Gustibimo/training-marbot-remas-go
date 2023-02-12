@@ -1,4 +1,4 @@
-package persistence
+package db
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func readFile(path string, lines chan<- string) {
+func ReadFile(path string, lines chan<- string) {
 	file, err := os.Open(path)
 
 	if err != nil {
