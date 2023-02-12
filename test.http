@@ -1,0 +1,5 @@
+#### Root
+GET http://localhost:3333 HTTP/1.1
+
+### Get User
+GET http://localhost:3333/users?first_name=Isabella HTTP/1.1
